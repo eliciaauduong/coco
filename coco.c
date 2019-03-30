@@ -32,7 +32,7 @@ void choose_card_to_play(void);
 
 
 // ADD PROTOTYPES FOR YOUR FUNCTIONS HERE
-// int read_nums(int nums[len]);
+int primeCheck(int num);
 
 // You should not need to change this main function
 
@@ -185,3 +185,25 @@ void choose_card_to_play(void) {
 }
 
 // ADD YOUR FUNCTIONS HERE
+
+int primeCheck(int num) {
+
+    int prime = 0;
+    int divider = 2;
+    
+    while (divider < num) {
+        if (num % divider == 0) {
+            prime = 0;
+            break;
+        } else {
+            prime = 1;
+        }
+        if (divider % 2 == 0) {
+            divider++;
+        } else {
+            divider = divider + 2;
+        }
+    }
+
+    return prime;
+}
