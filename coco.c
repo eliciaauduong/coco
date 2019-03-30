@@ -156,7 +156,7 @@ void choose_card_to_play(void) {
     
     int totalPrimes = 0;
     int totalNonPrimes = 0;
-    
+
     int counterC = 0;
     while (counterC < numberInHand) {
         if ((primeCheck(cardsInHand[counterC]) == 1)) {
@@ -166,7 +166,7 @@ void choose_card_to_play(void) {
         }
         counterC++;
     }
-
+    
     int primeBefore = 0;
     int counterB = 0;
     while (counterB < numberPlayed) {
@@ -181,34 +181,36 @@ void choose_card_to_play(void) {
     if ((primeCheck(previouslyPlayed[0])) == 1) {
         firstPrime = 1;
     }
-
-    /*if (numberCardsPlayed == 0) {
-        playFirstCard = 1;
-        if (primePlayed != 0) {
-            // play any card
+    
+    if (numberCardsPlayed == 0) {
+        printf("first player\n");
+        if (primeBefore == 1) {
+            printf("play any card\n");
         } else {
             if (totalNonPrimes !=0) {
-                // play a non-prime
+                printf("play a non-prime\n"); 
             } else {
-                // play any card
+                printf("play any card\n");
             }
         }
     } else {
-        if (check first card is prime) {
+        printf("not first player\n");
+        if (firstPrime == 1) {
             if (totalPrimes != 0) {
-                // play a prime
+                printf("play a prime\n"); 
             } else {
-                // play any card
+                printf("play any card\n");
             }
         } else {
-            if (check for co-composite) {
+            printf("play any co card\n");
+            /*if (check for co-composite) {
                 // play co-composite card
             } else {
                 // play any card
-            }
+            }*/
         }
-    }*/
-
+    }
+    
 }
 
 // ADD YOUR FUNCTIONS HERE
