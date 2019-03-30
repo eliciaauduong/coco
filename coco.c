@@ -137,7 +137,7 @@ void choose_card_to_play(void) {
         counterS++;
     }
     
-    // scan in discarded cards from the beginning
+    /*// scan in discarded cards from the beginning
     int counterD = 0;
     int discardedCards[MAX_SIZE];
     while (counterD < N_CARDS_DISCARDED) {
@@ -150,7 +150,7 @@ void choose_card_to_play(void) {
     while (counterR < N_CARDS_RECEIVED) {
         scanf("%d", &receivedCards[counterR]);
         counterR++;
-    }
+    }*/
     
     // THEN REPLACE THIS PRINTF WITH CODE TO CHOOSE AND PRINT THE CARD YOU WISH TO PLAY
     
@@ -174,7 +174,7 @@ void choose_card_to_play(void) {
         }
         counterC++;
     }
-
+    
     int primeBefore = 0;
     int counterB = 0;
     while (counterB < numberPlayed) {
@@ -188,6 +188,33 @@ void choose_card_to_play(void) {
     
     if ((primeCheck(previouslyPlayed[0])) == 1) {
         firstPrime = 1;
+    } else {
+        int firstCo = previouslyPlayed[0];
+        int firstFactors[MAX_SIZE];
+        int numberOfFactors = 0;
+            
+        int numberDivided = firstCo;
+        
+        int counter = 0;
+        while (numberDivided != 1 && counter < MAX_SIZE) {
+            while (numberDivided % 2 == 0) {
+                firstFactors[counter] = 2;
+                numberDivided = numberDivided/2;
+                numberOfFactors++;
+                counter++;
+            } 
+        
+            int factor = 3;
+            while (factor < firstCo) {
+                while (numberDivided % factor == 0) {
+                    firstFactors[counter] = factor;
+                    numberDivided = numberDivided/factor;
+                    numberOfFactors++;
+                    counter++;
+                }
+                factor = factor + 2;
+            }
+        }
     }
     
     if (numberCardsPlayed == 0) {
@@ -196,7 +223,7 @@ void choose_card_to_play(void) {
             printf("play any card\n");
         } else {
             if (totalNonPrimes !=0) {
-                printf("play a non-prime\n"); 
+                printf("play a non-prime\n");
             } else {
                 printf("play any card\n");
             }
@@ -217,8 +244,7 @@ void choose_card_to_play(void) {
                 // play any card
             }*/
         }
-    }
-    
+    }  
 }
 
 // ADD YOUR FUNCTIONS HERE
