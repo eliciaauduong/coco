@@ -155,6 +155,33 @@ void choose_card_to_play(void) {
     
     // THEN REPLACE THIS PRINTF WITH CODE TO CHOOSE AND PRINT THE CARD YOU WISH TO PLAY
     
+    /*if (numberCardsPlayed == 0) {
+        playFirstCard = 1;
+        if (primePlayed != 0) {
+            // play any card
+        } else {
+            if (totalNonPrimes !=0) {
+                // play a non-prime
+            } else {
+                // play any card
+            }
+        }
+    } else {
+        if (check first card is prime) {
+            if (totalPrimes != 0) {
+                // play a prime
+            } else {
+                // play any card
+            }
+        } else {
+            if (check for co-composite) {
+                // play co-composite card
+            } else {
+                // play any card
+            }
+        }
+    }*/
+
 }
 
 // ADD YOUR FUNCTIONS HERE
