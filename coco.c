@@ -112,7 +112,6 @@ void choose_card_to_play(void) {
     int cardsInHand[MAX_SIZE];
     while (counterH < numberInHand) {
         scanf("%d", &cardsInHand[counterH]);
-        // printf("%d\n", cardsInHand[counterH]);
         counterH++;
     }
 
