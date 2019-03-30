@@ -24,6 +24,7 @@
 // IF YOU NEED MORE #defines ADD THEM HERE
 #define MAX_SIZE           1000
 #define N_CARDS_RECEIVED      3
+#define THE_DOUGLAS          42
 
 void print_player_name(void);
 void choose_discards(void);
@@ -69,13 +70,25 @@ void choose_discards() {
     }
     // THEN ADD YOUR CODE HERE TO CHOOSE AND PRINT THE CARDS YOU WISH TO DISCARD
     int numberDiscarded = 0;
+    int counterI = 0;
+    int douglasCheck = 0;
     int placement = N_CARDS_INITIAL_HAND - 1;
+    while (counterI < N_CARDS_INITIAL_HAND && douglasCheck == 0) {
+        if (myCards[counterI] == THE_DOUGLAS) {
+            printf("%d ", THE_DOUGLAS);
+            douglasCheck = 1;
+            numberDiscarded = 1;
+        }
+        counterI++;
+    }
+    
     while (numberDiscarded < N_CARDS_DISCARDED) {
         printf("%d ", myCards[placement]);
         placement = placement - 1;
         numberDiscarded++;
     }
 
+    printf("\n");
 }
 
 
@@ -141,8 +154,6 @@ void choose_card_to_play(void) {
     }
     
     // THEN REPLACE THIS PRINTF WITH CODE TO CHOOSE AND PRINT THE CARD YOU WISH TO PLAY
-    
-    
     
 }
 
