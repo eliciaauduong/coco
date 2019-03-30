@@ -167,6 +167,21 @@ void choose_card_to_play(void) {
         counterC++;
     }
 
+    int primeBefore = 0;
+    int counterB = 0;
+    while (counterB < numberPlayed) {
+        if ((primeCheck(gameHistory[counterB])) == 1) {
+            primeBefore = 1;
+        }
+        counterB++;
+    }
+    
+    int firstPrime = 0;
+    
+    if ((primeCheck(previouslyPlayed[0])) == 1) {
+        firstPrime = 1;
+    }
+
     /*if (numberCardsPlayed == 0) {
         playFirstCard = 1;
         if (primePlayed != 0) {
