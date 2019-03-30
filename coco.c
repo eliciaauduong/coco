@@ -155,18 +155,26 @@ void choose_card_to_play(void) {
     // THEN REPLACE THIS PRINTF WITH CODE TO CHOOSE AND PRINT THE CARD YOU WISH TO PLAY
     
     int totalPrimes = 0;
+    int primes[MAX_SIZE];
     int totalNonPrimes = 0;
-
+    int nonPrimes[MAX_SIZE];
+    
     int counterC = 0;
+    int counterCP = 0;
+    int counterCNP = 0;
     while (counterC < numberInHand) {
         if ((primeCheck(cardsInHand[counterC]) == 1)) {
+            primes[counterCP] = cardsInHand[counterC];
+            counterCP++;
             totalPrimes++;
         } else {
+            nonPrimes[counterCNP] = cardsInHand[counterC];
+            counterCNP++;
             totalNonPrimes++;
         }
         counterC++;
     }
-    
+
     int primeBefore = 0;
     int counterB = 0;
     while (counterB < numberPlayed) {
