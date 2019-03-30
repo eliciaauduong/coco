@@ -73,6 +73,8 @@ void choose_discards() {
     int counterI = 0;
     int douglasCheck = 0;
     int placement = N_CARDS_INITIAL_HAND - 1;
+    
+    // if douglas is in initial hand, discard 42
     while (counterI < N_CARDS_INITIAL_HAND && douglasCheck == 0) {
         if (myCards[counterI] == THE_DOUGLAS) {
             printf("%d ", THE_DOUGLAS);
@@ -162,6 +164,8 @@ void choose_card_to_play(void) {
     int counterC = 0;
     int counterCP = 0;
     int counterCNP = 0;
+    
+    // check for and count all primes and non-primes in hand
     while (counterC < numberInHand) {
         if ((primeCheck(cardsInHand[counterC]) == 1)) {
             primes[counterCP] = cardsInHand[counterC];
@@ -177,6 +181,8 @@ void choose_card_to_play(void) {
     
     int primeBefore = 0;
     int counterB = 0;
+    
+    // check if a prime number has previously been played
     while (counterB < numberPlayed) {
         if ((primeCheck(gameHistory[counterB])) == 1) {
             primeBefore = 1;
@@ -186,9 +192,11 @@ void choose_card_to_play(void) {
     
     int firstPrime = 0;
     
+    // check if first card this round is prime
     if ((primeCheck(previouslyPlayed[0])) == 1) {
         firstPrime = 1;
     } else {
+        // if non-prime then find factors and add to array of factors
         int firstCo = previouslyPlayed[0];
         int firstFactors[MAX_SIZE];
         int numberOfFactors = 0;
@@ -217,27 +225,35 @@ void choose_card_to_play(void) {
         }
     }
     
+    // valid moves
+    // check if playing first card in round
     if (numberCardsPlayed == 0) {
-        printf("first player\n");
+        // printf("first player\n");
+        // check if prime card has been played before
         if (primeBefore == 1) {
             printf("play any card\n");
         } else {
             if (totalNonPrimes !=0) {
                 printf("play a non-prime\n");
+                printf("%d\n", nonPrimes[0]);
             } else {
                 printf("play any card\n");
             }
         }
     } else {
-        printf("not first player\n");
+        // printf("not first player\n");
+        // check if first card played was prime
         if (firstPrime == 1) {
+            // check if there is a prime card in hand
             if (totalPrimes != 0) {
                 printf("play a prime\n"); 
+                printf("%d\n", primes[0]);
             } else {
                 printf("play any card\n");
             }
         } else {
             printf("play any co card\n");
+            // check if co-composite card in hand
             /*if (check for co-composite) {
                 // play co-composite card
             } else {
@@ -249,6 +265,7 @@ void choose_card_to_play(void) {
 
 // ADD YOUR FUNCTIONS HERE
 
+// checks if a number is prime or composite
 int primeCheck(int num) {
 
     int prime = 0;
