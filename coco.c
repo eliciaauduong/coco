@@ -155,6 +155,19 @@ void choose_card_to_play(void) {
     
     // THEN REPLACE THIS PRINTF WITH CODE TO CHOOSE AND PRINT THE CARD YOU WISH TO PLAY
     
+    int totalPrimes = 0;
+    int totalNonPrimes = 0;
+    
+    int counterC = 0;
+    while (counterC < numberInHand) {
+        if ((primeCheck(cardsInHand[counterC]) == 1)) {
+            totalPrimes++;
+        } else {
+            totalNonPrimes++;
+        }
+        counterC++;
+    }
+
     /*if (numberCardsPlayed == 0) {
         playFirstCard = 1;
         if (primePlayed != 0) {
