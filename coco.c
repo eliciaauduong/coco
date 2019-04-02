@@ -191,33 +191,33 @@ void choose_card_to_play(void) {
     }
     
     int firstPrime = 0;
+    int firstCard = previouslyPlayed[0];
+    int firstFactors[MAX_SIZE];
+    int numFirstFactors = 0;
+        
+    int numberDivided = firstCard;
     
-    // check if first card this round is prime
+    // check if first card is prime
     if ((primeCheck(previouslyPlayed[0])) == 1) {
         firstPrime = 1;
     } else {
         // if non-prime then find factors and add to array of factors
-        int firstCo = previouslyPlayed[0];
-        int firstFactors[MAX_SIZE];
-        int numberOfFactors = 0;
-            
-        int numberDivided = firstCo;
-        
+        firstPrime = 0;
         int counter = 0;
         while (numberDivided != 1 && counter < MAX_SIZE) {
             while (numberDivided % 2 == 0) {
                 firstFactors[counter] = 2;
                 numberDivided = numberDivided/2;
-                numberOfFactors++;
+                numFirstFactors++;
                 counter++;
             } 
         
             int factor = 3;
-            while (factor < firstCo) {
+            while (factor < firstCard) {
                 while (numberDivided % factor == 0) {
                     firstFactors[counter] = factor;
                     numberDivided = numberDivided/factor;
-                    numberOfFactors++;
+                    numFirstFactors++;
                     counter++;
                 }
                 factor = factor + 2;
@@ -225,24 +225,91 @@ void choose_card_to_play(void) {
         }
     }
     
+    int match[MAX_SIZE] = {0}; 
+    int allCocomposites[MAX_SIZE] = {0};
+    int numCocomposites = 0;
+    int i = 0;
+    if (firstPrime == 0) {
+        while (i < totalNonPrimes) {
+            int compositeFactors[MAX_SIZE];
+            int numberOfFactors = 0;
+                
+            int composite = nonPrimes[i];
+            
+            int counter = 0;
+            
+            while (composite != 1 && counter < MAX_SIZE) {
+                while (composite % 2 == 0) {
+                    compositeFactors[counter] = 2;
+                    composite = composite/2;
+                    numberOfFactors++;
+                    counter++;
+                } 
+            
+                int factor = 3;
+                while (factor < firstCard) {
+                    while (composite % factor == 0) {
+                        compositeFactors[counter] = factor;
+                        composite = composite/factor;
+                        numberOfFactors++;
+                        counter++;
+                    }
+                    factor = factor + 2;
+                }
+            }
+            int j = 0;
+            int k = 0;
+                    
+            j = 0; 
+            while (j < numFirstFactors) {
+                k = 0;
+                while (k < numberOfFactors) {
+                    if (firstFactors[j] == compositeFactors[k]) {
+                        match[i] = nonPrimes[i];
+                    }
+                    k++;
+                }
+                j++;
+            }
+            i++;
+        }
+    }
+    
+    int counterA = 0;
+    while (counterA < MAX_SIZE) {
+        if (match[counterA] != 0) {
+            allCocomposites[counterA] = match[counterA];
+            printf("%d\n", allCocomposites[counterA]); 
+            numCocomposites++;
+        }
+        counterA++;
+    }    
+    
+    printf("number of cocomposites: %d\n", numCocomposites);
+    
     // valid moves
     // check if playing first card in round
     if (numberCardsPlayed == 0) {
         // printf("first player\n");
         // check if prime card has been played before
+        
+        
+        
         if (primeBefore == 1) {
             printf("play any card\n");
+            printf("%d\n", nonPrimes[0]);
         } else {
             if (totalNonPrimes !=0) {
                 printf("play a non-prime\n");
                 printf("%d\n", nonPrimes[0]);
             } else {
                 printf("play any card\n");
+                printf("%d\n", nonPrimes[0]);
             }
         }
     } else {
         // printf("not first player\n");
-        // check if first card played was prime
+        // check if first card this round is prime
         if (firstPrime == 1) {
             // check if there is a prime card in hand
             if (totalPrimes != 0) {
@@ -250,14 +317,17 @@ void choose_card_to_play(void) {
                 printf("%d\n", primes[0]);
             } else {
                 printf("play any card\n");
+                printf("%d\n", nonPrimes[0]);
             }
         } else {
             printf("play any co card\n");
             // check if co-composite card in hand
-            /*if (check for co-composite) {
+            /*if (numCocomposites != 0) {
                 // play co-composite card
+                printf("%d\n", allCocomposites[0]);
             } else {
                 // play any card
+                printf("%d\n", nonPrimes[0]);
             }*/
         }
     }  
