@@ -202,9 +202,11 @@ void choose_card_to_play(void) {
     int numberDivided = firstCard;
     
     // check if first card is prime
-    if ((primeCheck(previouslyPlayed[0])) == 1) {
+    if (numberCardsPlayed != 0 && (primeCheck(previouslyPlayed[0])) == 1) {
         firstPrime = 1;
-    } else {
+    } 
+    
+    if (numberCardsPlayed != 0 && firstPrime == 0) {
         // if non-prime then find factors and add to array of factors
         int counter = 0;
         while (numberDivided != 1 && counter < MAX_SIZE) {
@@ -232,7 +234,7 @@ void choose_card_to_play(void) {
     int allCocomposites[MAX_SIZE] = {0};
     int numCocomposites = 0;
     int counterJ = 0;
-    if (firstPrime == 0) {
+    if (firstPrime == 0 && numberCardsPlayed != 0) {
         while (counterJ < totalNonPrimes) {
         
             int compositeFactors[MAX_SIZE];
