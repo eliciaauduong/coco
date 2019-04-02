@@ -85,9 +85,13 @@ void choose_discards() {
     }
     
     while (numberDiscarded < N_CARDS_DISCARDED) {
-        printf("%d ", myCards[placement]);
-        placement = placement - 1;
-        numberDiscarded++;
+        if (myCards[placement] == 42) {
+            placement = placement - 1;
+        } else {
+            printf("%d ", myCards[placement]);
+            placement = placement - 1;
+            numberDiscarded++;
+        }
     }
 
     printf("\n");
@@ -131,7 +135,7 @@ void choose_card_to_play(void) {
     // YOU WILL NEED TO USE A WHILE LOOP AND SCANF
     
     int counterS = 0;
-    int round = N_CARDS_INITIAL_HAND - numberInHand;
+    int round = N_CARDS_INITIAL_HAND - numberInHand - 1;
     int numberPlayed = round * N_PLAYERS;
     int gameHistory[MAX_SIZE];
     while (counterS < numberPlayed) {
@@ -202,7 +206,6 @@ void choose_card_to_play(void) {
         firstPrime = 1;
     } else {
         // if non-prime then find factors and add to array of factors
-        firstPrime = 0;
         int counter = 0;
         while (numberDivided != 1 && counter < MAX_SIZE) {
             while (numberDivided % 2 == 0) {
@@ -231,6 +234,7 @@ void choose_card_to_play(void) {
     int counterJ = 0;
     if (firstPrime == 0) {
         while (counterJ < totalNonPrimes) {
+        
             int compositeFactors[MAX_SIZE];
             int numberOfFactors = 0;
                 
@@ -275,34 +279,39 @@ void choose_card_to_play(void) {
         }
     }
     
-    /*int counterA = 0;
+    int counterA = 0;
     while (counterA < MAX_SIZE) {
         if (match[counterA] != 0) {
-            allCocomposites[counterA] = match[counterA];
-            printf("%d\n", allCocomposites[counterA]); 
+            allCocomposites[numCocomposites] = match[counterA];
+            //printf("%d\n", allCocomposites[numCocomposites]); 
             numCocomposites++;
         }
         counterA++;
-    }*/
+    }
     
     // valid moves
     // check if playing first card in round
     if (numberCardsPlayed == 0) {
         // printf("first player\n");
         // check if prime card has been played before
-        
-        
-        
         if (primeBefore == 1) {
-            printf("play any card\n");
-            printf("%d\n", nonPrimes[0]);
-        } else {
-            if (totalNonPrimes !=0) {
-                printf("play a non-prime\n");
+            //printf("play any card\n");
+            if (totalNonPrimes != 0) {
                 printf("%d\n", nonPrimes[0]);
             } else {
-                printf("play any card\n");
+                printf("%d\n", primes[0]);
+            }
+        } else {
+            if (totalNonPrimes !=0) {
+                //printf("play a non-prime\n");
                 printf("%d\n", nonPrimes[0]);
+            } else {
+                //printf("play any card\n");
+                if (totalNonPrimes != 0) {
+                    printf("%d\n", nonPrimes[0]);
+                } else {
+                    printf("%d\n", primes[0]);
+                }
             }
         }
     } else {
@@ -311,23 +320,30 @@ void choose_card_to_play(void) {
         if (firstPrime == 1) {
             // check if there is a prime card in hand
             if (totalPrimes != 0) {
-                printf("play a prime\n"); 
+                //printf("play a prime\n"); 
                 printf("%d\n", primes[0]);
             } else {
-                printf("play any card\n");
-                printf("%d\n", nonPrimes[0]);
+                //printf("play any card\n");
+                if (totalNonPrimes != 0) {
+                    printf("%d\n", nonPrimes[0]);
+                } else {
+                    printf("%d\n", primes[0]);
+                }
             }
         } else {
-            
             // check if co-composite card in hand
             if (numCocomposites != 0) {
                 // play co-composite card
-                printf("play any co card\n");
+                //printf("play any co card\n");
                 printf("%d\n", allCocomposites[0]);
             } else {
                 // play any card
-                printf("play any card\n");
-                printf("%d\n", nonPrimes[0]);
+                //printf("play any card\n");
+                if (totalNonPrimes != 0) {
+                    printf("%d\n", nonPrimes[0]);
+                } else {
+                    printf("%d\n", primes[0]);
+                }
             }
         }
     }  
