@@ -228,13 +228,13 @@ void choose_card_to_play(void) {
     int match[MAX_SIZE] = {0}; 
     int allCocomposites[MAX_SIZE] = {0};
     int numCocomposites = 0;
-    int i = 0;
+    int counterJ = 0;
     if (firstPrime == 0) {
-        while (i < totalNonPrimes) {
+        while (counterJ < totalNonPrimes) {
             int compositeFactors[MAX_SIZE];
             int numberOfFactors = 0;
                 
-            int composite = nonPrimes[i];
+            int composite = nonPrimes[counterJ];
             
             int counter = 0;
             
@@ -257,25 +257,25 @@ void choose_card_to_play(void) {
                     factor = factor + 2;
                 }
             }
-            int j = 0;
-            int k = 0;
+            int counterK = 0;
+            int counterL = 0;
                     
-            j = 0; 
-            while (j < numFirstFactors) {
-                k = 0;
-                while (k < numberOfFactors) {
-                    if (firstFactors[j] == compositeFactors[k]) {
-                        match[i] = nonPrimes[i];
+            counterK = 0; 
+            while (counterK < numFirstFactors) {
+                counterL = 0;
+                while (counterL < numberOfFactors) {
+                    if (firstFactors[counterK] == compositeFactors[counterL]) {
+                        match[counterJ] = nonPrimes[counterJ];
                     }
-                    k++;
+                    counterL++;
                 }
-                j++;
+                counterK++;
             }
-            i++;
+            counterJ++;
         }
     }
     
-    int counterA = 0;
+    /*int counterA = 0;
     while (counterA < MAX_SIZE) {
         if (match[counterA] != 0) {
             allCocomposites[counterA] = match[counterA];
@@ -283,9 +283,7 @@ void choose_card_to_play(void) {
             numCocomposites++;
         }
         counterA++;
-    }    
-    
-    printf("number of cocomposites: %d\n", numCocomposites);
+    }*/
     
     // valid moves
     // check if playing first card in round
@@ -320,15 +318,17 @@ void choose_card_to_play(void) {
                 printf("%d\n", nonPrimes[0]);
             }
         } else {
-            printf("play any co card\n");
+            
             // check if co-composite card in hand
-            /*if (numCocomposites != 0) {
+            if (numCocomposites != 0) {
                 // play co-composite card
+                printf("play any co card\n");
                 printf("%d\n", allCocomposites[0]);
             } else {
                 // play any card
+                printf("play any card\n");
                 printf("%d\n", nonPrimes[0]);
-            }*/
+            }
         }
     }  
 }
