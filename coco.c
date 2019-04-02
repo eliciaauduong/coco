@@ -219,14 +219,19 @@ void choose_card_to_play(void) {
         
             int factor = 3;
             while (factor < firstCard) {
-                while (numberDivided % factor == 0) {
-                    firstFactors[counter] = factor;
-                    numberDivided = numberDivided/factor;
-                    numFirstFactors++;
-                    counter++;
+                if (numberDivided % factor == 0) {
+                    while (numberDivided % factor == 0) {
+                        firstFactors[counter] = factor;
+                        numberDivided = numberDivided/factor;
+                        numFirstFactors++;
+                        counter++;
+                    }
+                } else {
+                    factor = factor + 2;
                 }
                 factor = factor + 2;
             }
+            counter++;
         }
     }
     
@@ -255,14 +260,19 @@ void choose_card_to_play(void) {
             
                 int factor = 3;
                 while (factor < firstCard) {
-                    while (composite % factor == 0) {
-                        compositeFactors[counter] = factor;
-                        composite = composite/factor;
-                        numberOfFactors++;
-                        counter++;
+                    if (composite % factor == 0) {
+                        while (composite % factor == 0) {
+                            compositeFactors[counter] = factor;
+                            composite = composite/factor;
+                            numberOfFactors++;
+                            counter++;
+                        }
+                    } else {
+                        factor = factor + 2;
                     }
                     factor = factor + 2;
                 }
+                counter++;
             }
             int counterK = 0;
             int counterL = 0;
@@ -271,7 +281,7 @@ void choose_card_to_play(void) {
             while (counterK < numFirstFactors) {
                 counterL = 0;
                 while (counterL < numberOfFactors) {
-                    if (firstFactors[counterK] == compositeFactors[counterL]) {
+                    if (firstFactors[counterK] == compositeFactors[counterL] && firstFactors[counterK] != 0) {
                         match[counterJ] = nonPrimes[counterJ];
                     }
                     counterL++;
