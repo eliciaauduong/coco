@@ -234,6 +234,7 @@ void choose_card_to_play(void) {
     int allCocomposites[MAX_SIZE] = {0};
     int numCocomposites = 0;
     int counterJ = 0;
+    int counter = 0;
     if (firstPrime == 0 && numberCardsPlayed != 0) {
         while (counterJ < totalNonPrimes) {
         
@@ -242,7 +243,7 @@ void choose_card_to_play(void) {
                 
             int composite = nonPrimes[counterJ];
             
-            int counter = 0;
+            counter = 0;
             
             while (composite != 1 && counter < MAX_SIZE) {
                 while (composite % 2 == 0) {
