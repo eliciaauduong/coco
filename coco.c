@@ -294,10 +294,19 @@ void choose_card_to_play(void) {
     while (counterA < MAX_SIZE) {
         if (match[counterA] != 0) {
             allCocomposites[numCocomposites] = match[counterA];
-            //printf("%d\n", allCocomposites[numCocomposites]); 
             numCocomposites++;
         }
         counterA++;
+    }
+    
+    // find the biggest card that has been played in this round
+    int counterZ = 0;
+    int biggestPlay = 0;
+    while (counterZ < counterP) {
+        if (previouslyPlayed[counterZ] > biggestPlay) {
+            biggestPlay = previouslyPlayed[counterZ];
+        }
+        counterZ++;
     }
     
     // valid moves
