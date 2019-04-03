@@ -226,12 +226,9 @@ void choose_card_to_play(void) {
                         numFirstFactors++;
                         counter++;
                     }
-                } else {
-                    factor = factor + 2;
-                }
+                } 
                 factor = factor + 2;
             }
-            counter++;
         }
     }
     
@@ -267,12 +264,9 @@ void choose_card_to_play(void) {
                             numberOfFactors++;
                             counter++;
                         }
-                    } else {
-                        factor = factor + 2;
-                    }
+                    } 
                     factor = factor + 2;
                 }
-                counter++;
             }
             int counterK = 0;
             int counterL = 0;
@@ -281,7 +275,7 @@ void choose_card_to_play(void) {
             while (counterK < numFirstFactors) {
                 counterL = 0;
                 while (counterL < numberOfFactors) {
-                    if (firstFactors[counterK] == compositeFactors[counterL] && firstFactors[counterK] != 0) {
+                    if (firstFactors[counterK] == compositeFactors[counterL]) {
                         match[counterJ] = nonPrimes[counterJ];
                     }
                     counterL++;
