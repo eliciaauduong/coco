@@ -218,7 +218,7 @@ void choose_card_to_play(void) {
             } 
         
             int factor = 3;
-            while (factor < firstCard) {
+            while (factor <= firstCard) {
                 if (numberDivided % factor == 0) {
                     while (numberDivided % factor == 0) {
                         firstFactors[counter] = factor;
@@ -226,8 +226,10 @@ void choose_card_to_play(void) {
                         numFirstFactors++;
                         counter++;
                     }
-                } 
-                factor = factor + 2;
+                    factor = factor + 2;
+                } else {
+                    factor = factor + 2;
+                }
             }
         }
     }
@@ -256,7 +258,7 @@ void choose_card_to_play(void) {
                 } 
             
                 int factor = 3;
-                while (factor < firstCard) {
+                while (factor <= composite) {
                     if (composite % factor == 0) {
                         while (composite % factor == 0) {
                             compositeFactors[counter] = factor;
@@ -264,8 +266,10 @@ void choose_card_to_play(void) {
                             numberOfFactors++;
                             counter++;
                         }
-                    } 
-                    factor = factor + 2;
+                        factor = factor + 2;
+                    } else {
+                        factor = factor + 2;
+                    }
                 }
             }
             int counterK = 0;
