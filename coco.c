@@ -303,10 +303,10 @@ void choose_card_to_play(void) {
     
     // find the biggest card that has been played in this round
     int counterZ = 0;
-    int biggestPlay = 0;
+    int bigPlay = 0;
     while (counterZ < counterP) {
-        if (previouslyPlayed[counterZ] > biggestPlay) {
-            biggestPlay = previouslyPlayed[counterZ];
+        if (previouslyPlayed[counterZ] > bigPlay) {
+            bigPlay = previouslyPlayed[counterZ];
         }
         counterZ++;
     }
@@ -316,54 +316,95 @@ void choose_card_to_play(void) {
     if (numberCardsPlayed == 0) {
         // check if prime card has been played before
         if (primeBefore == 1) {
-            //printf("play any card\n");
+            //play any card
             if (totalNonPrimes != 0) {
-                printf("%d\n", nonPrimes[0]);
-            } else {
-                printf("%d\n", primes[0]);
-            }
-        } else {
-            if (totalNonPrimes !=0) {
-                //printf("play a non-prime\n");
-                printf("%d\n", nonPrimes[0]);
-            } else {
-                //printf("play any card\n");
-                if (totalNonPrimes != 0) {
+                if (numGoodCards(bigPlay, totalNonPrimes, nonPrimes) != 0) {
+                    printf("%d\n", bestPlay(bigPlay, totalNonPrimes, nonPrimes));
+                } else {
                     printf("%d\n", nonPrimes[0]);
+                }
+            } else {
+                if (numGoodCards(bigPlay, totalPrimes, primes) != 0) {
+                    printf("%d\n", bestPlay(bigPlay, totalPrimes, primes));
                 } else {
                     printf("%d\n", primes[0]);
                 }
             }
+        } else {
+            if (totalNonPrimes !=0) {
+                //play a non-prime
+                if (numGoodCards(bigPlay, totalNonPrimes, nonPrimes) != 0) {
+                    printf("%d\n", bestPlay(bigPlay, totalNonPrimes, nonPrimes));
+                } else {
+                    printf("%d\n", nonPrimes[0]);
+                }
+            } else {
+                //play any card
+                if (totalNonPrimes != 0) {
+                    if (numGoodCards(bigPlay, totalNonPrimes, nonPrimes) != 0) {
+                        printf("%d\n", bestPlay(bigPlay, totalNonPrimes, nonPrimes));
+                    } else {
+                        printf("%d\n", nonPrimes[0]);
+                    }
+                } else {
+                    if (numGoodCards(bigPlay, totalPrimes, primes) != 0) {
+                        printf("%d\n", bestPlay(bigPlay, totalPrimes, primes));
+                    } else {
+                        printf("%d\n", primes[0]);
+                    }
+                }
+            }
         }
     } else {
-        // printf("not first player\n");
         // check if first card this round is prime
         if (firstPrime == 1) {
             // check if there is a prime card in hand
             if (totalPrimes != 0) {
-                //printf("play a prime\n"); 
-                printf("%d\n", primes[0]);
-            } else {
-                //printf("play any card\n");
-                if (totalNonPrimes != 0) {
-                    printf("%d\n", nonPrimes[0]);
+                //play a prime 
+                if (numGoodCards(bigPlay, totalPrimes, primes) != 0) {
+                    printf("%d\n", bestPlay(bigPlay, totalPrimes, primes));
                 } else {
                     printf("%d\n", primes[0]);
+                }
+            } else {
+                //play any card
+                if (totalNonPrimes != 0) {
+                    if (numGoodCards(bigPlay, totalNonPrimes, nonPrimes) != 0) {
+                        printf("%d\n", bestPlay(bigPlay, totalNonPrimes, nonPrimes));
+                    } else {
+                        printf("%d\n", nonPrimes[0]);
+                    }
+                } else {
+                    if (numGoodCards(bigPlay, totalPrimes, primes) != 0) {
+                        printf("%d\n", bestPlay(bigPlay, totalPrimes, primes));
+                    } else {
+                        printf("%d\n", primes[0]);
+                    }
                 }
             }
         } else {
             // check if co-composite card in hand
             if (numCocomposites != 0) {
                 // play co-composite card
-                //printf("play any co card\n");
-                printf("%d\n", allCocomposites[0]);
+                if (numGoodCards(bigPlay, numCocomposites, allCocomposites) != 0) {
+                    printf("%d\n", bestPlay(bigPlay, numCocomposites, allCocomposites));
+                } else {
+                    printf("%d\n", allCocomposites[0]);
+                }
             } else {
                 // play any card
-                //printf("play any card\n");
                 if (totalNonPrimes != 0) {
-                    printf("%d\n", nonPrimes[0]);
+                    if (numGoodCards(bigPlay, totalNonPrimes, nonPrimes) != 0) {
+                        printf("%d\n", bestPlay(bigPlay, totalNonPrimes, nonPrimes));
+                    } else {
+                        printf("%d\n", nonPrimes[0]);
+                    }
                 } else {
-                    printf("%d\n", primes[0]);
+                    if (numGoodCards(bigPlay, totalPrimes, primes) != 0) {
+                        printf("%d\n", bestPlay(bigPlay, totalPrimes, primes));
+                    } else {
+                        printf("%d\n", primes[0]);
+                    }
                 }
             }
         }
