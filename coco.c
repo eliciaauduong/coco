@@ -373,18 +373,10 @@ void choose_card_to_play(void) {
                 }
             } else {
                 // play any card
-                if (totalNonPrimes != 0) {
-                    if (numGoodCards(bigPlay, totalNonPrimes, nonPrimes) != 0) {
-                        printf("%d\n", bestPlay(bigPlay, totalNonPrimes, nonPrimes));
-                    } else {
-                        printf("%d\n", nonPrimes[0]);
-                    }
+                if (totalPrimes != 0) {
+                    printf("%d\n", primes[totalPrimes-1]); 
                 } else {
-                    if (numGoodCards(bigPlay, totalPrimes, primes) != 0) {
-                        printf("%d\n", bestPlay(bigPlay, totalPrimes, primes));
-                    } else {
-                        printf("%d\n", primes[0]);
-                    }
+                    printf("%d\n", nonPrimes[totalNonPrimes-1]);
                 }
             }
         }
