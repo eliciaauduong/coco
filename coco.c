@@ -33,6 +33,8 @@ void choose_card_to_play(void);
 
 // ADD PROTOTYPES FOR YOUR FUNCTIONS HERE
 int primeCheck(int num);
+int numGoodCards(int largest, int numPossible, int allPossible[numPossible]);
+int bestPlay(int largest, int numPossible, int allPossible[numPossible]);
 
 // You should not need to change this main function
 
@@ -312,7 +314,6 @@ void choose_card_to_play(void) {
     // valid moves
     // check if playing first card in round
     if (numberCardsPlayed == 0) {
-        // printf("first player\n");
         // check if prime card has been played before
         if (primeBefore == 1) {
             //printf("play any card\n");
@@ -392,4 +393,33 @@ int primeCheck(int num) {
     }
 
     return prime;
+}
+
+int numGoodCards(int largest, int numPossible, int allPossible[numPossible]) {
+    int i = 0;
+    
+    int numGoodCards = 0;
+    while (i < numPossible && allPossible[i] < largest) {
+        i++;
+        numGoodCards++;
+    }
+    
+    return numGoodCards;
+}
+
+
+int bestPlay(int largest, int numPossible, int allPossible[numPossible]) {
+    int j = 0;
+    
+    int goodCards[MAX_SIZE] = {0};
+    int numGoodCards = 0;
+    while (j < numPossible && allPossible[j] < largest) {
+        goodCards[numGoodCards] = allPossible[j];
+        j++;
+        numGoodCards++;
+    }
+    
+    int bestCard = goodCards[numGoodCards-1];
+    
+    return bestCard;
 }
