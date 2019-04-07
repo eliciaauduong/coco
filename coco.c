@@ -23,7 +23,7 @@
 
 // IF YOU NEED MORE #defines ADD THEM HERE
 #define MAX_SIZE           1000
-#define N_CARDS_RECEIVED      3
+#define SCANNED_CARDS         3
 #define THE_DOUGLAS          42
 
 void print_player_name(void);
@@ -86,7 +86,10 @@ void choose_discards() {
         counterI++;
     }
     
+    // discard the 3 highest cards if the douglas is not in the hand
+    // discard the 2 highest cards if the douglas is in the hand
     while (numberDiscarded < N_CARDS_DISCARDED) {
+        // if 42 is in 3 the highest cards shift to get the next highest card
         if (myCards[placement] == 42) {
             placement = placement - 1;
         } else {
@@ -104,18 +107,24 @@ void choose_card_to_play(void) {
 
     // ADD CODE TO READ THE FIRST THREE NUMBERS WHICH ARE:
     // NUMBER OF CARDS IN YOUR HAND,  NUMBER OF CARDS PLAYED THIS ROUND, TABLE POSITION
+    
+    // counter of cards to scan in
     int counterN = 0;
-    int numbers[N_CARDS_DISCARDED] = {0};
-    while (counterN < N_CARDS_DISCARDED) {
+    int numbers[SCANNED_CARDS] = {0};
+    while (counterN < SCANNED_CARDS) {
         scanf("%d", &numbers[counterN]);
         counterN++;
     }
+    // number of cards in your hand
     int numberInHand = numbers[0];
+    // number of cards played this round
     int numberCardsPlayed = numbers[1];
+    // table position
     int tablePosition = numbers[2];
     // ADD CODE TO READ THE CARDS OF YOUR HAND INTO AN ARRAY
     // YOU WILL NEED TO USE A WHILE LOOP AND SCANF
     
+    // counter of cards in your hand
     int counterH = 0;
     int cardsInHand[MAX_SIZE];
     while (counterH < numberInHand) {
@@ -126,6 +135,7 @@ void choose_card_to_play(void) {
     // ADD CODE TO READ THE CARDS PREVIOUSLY PLAYED THIS ROUND INTO AN ARRAY
     // YOU WILL NEED TO USE A WHILE LOOP AND SCANF
     
+    // counter of previously played cards
     int counterP = 0;
     int previouslyPlayed[MAX_SIZE];
     while (counterP < numberCardsPlayed) {
@@ -136,8 +146,11 @@ void choose_card_to_play(void) {
     // ADD CODE TO READ THE CARDS PLAYED IN THE HISTORY OF THE GAME INTO AN ARRAY
     // YOU WILL NEED TO USE A WHILE LOOP AND SCANF
     
+    // counter of how many cards have been played in the whole game
     int counterS = 0;
+    // calculate round number (determined by number of cards in hand)
     int round = N_CARDS_INITIAL_HAND - numberInHand - 1;
+    // total number of cards played in the whole game
     int numberPlayed = round * N_PLAYERS;
     int gameHistory[MAX_SIZE];
     while (counterS < numberPlayed) {
@@ -145,90 +158,89 @@ void choose_card_to_play(void) {
         counterS++;
     }
     
-    /*// scan in discarded cards from the beginning
-    int counterD = 0;
-    int discardedCards[MAX_SIZE];
-    while (counterD < N_CARDS_DISCARDED) {
-        scanf("%d", &discardedCards[counterD]);
-        counterD++;
-    }
-    // scan in received cards from the beginning
-    int counterR = 0;
-    int receivedCards[MAX_SIZE];
-    while (counterR < N_CARDS_RECEIVED) {
-        scanf("%d", &receivedCards[counterR]);
-        counterR++;
-    }*/
-    
     // THEN REPLACE THIS PRINTF WITH CODE TO CHOOSE AND PRINT THE CARD YOU WISH TO PLAY
     
+    // total number of prime numbers in hand
     int totalPrimes = 0;
     int primes[MAX_SIZE];
+    
+    // total number of non-prime numbers in hand
     int totalNonPrimes = 0;
     int nonPrimes[MAX_SIZE];
     
+    // counter of cards in hand
     int counterC = 0;
-    int counterCP = 0;
-    int counterCNP = 0;
-    
+
     // check for and count all primes and non-primes in hand
     while (counterC < numberInHand) {
+        // primeCheck() - check if card is a prime number or not
+        // if card is a prime number, add to array of prime numbers
         if ((primeCheck(cardsInHand[counterC]) == 1)) {
-            primes[counterCP] = cardsInHand[counterC];
-            counterCP++;
+            primes[totalPrimes] = cardsInHand[counterC];
             totalPrimes++;
+        // if card is not a prime number, add to array of non-prime numbers
         } else {
-            nonPrimes[counterCNP] = cardsInHand[counterC];
-            counterCNP++;
+            nonPrimes[totalNonPrimes] = cardsInHand[counterC];
             totalNonPrimes++;
         }
         counterC++;
     }
     
+    // boolean if a prime card has been previously played; starts as FALSE
     int primeBefore = 0;
+    // counter of cards played before
     int counterB = 0;
     
     // check if a prime number has previously been played
     while (counterB < numberPlayed) {
+        // if a prime number exists in game history, primeBefore is TRUE
         if ((primeCheck(gameHistory[counterB])) == 1) {
             primeBefore = 1;
         }
         counterB++;
     }
     
+    // boolean if first card this round is prime; starts as FALSE
     int firstPrime = 0;
+    // first card is the first in the previouslyPlayed array
     int firstCard = previouslyPlayed[0];
-    int firstFactors[MAX_SIZE];
-    int numFirstFactors = 0;
-        
-    int numberDivided = firstCard;
     
-    // check if first card is prime
-    if (numberCardsPlayed != 0 && (primeCheck(previouslyPlayed[0])) == 1) {
+    // if not the first player then check if first card is prime
+    if (numberCardsPlayed != 0 && (primeCheck(firstCard)) == 1) {
         firstPrime = 1;
     } 
     
+    // copy of the first card to be divided by factors    
+    int numberDivided = firstCard;
+    // initialise array for the factors of the first card (when not prime)
+    int firstFactors[MAX_SIZE];
+    // count of the number of factors in the first card
+    int numFirstFactors = 0;
+    
+    // if not the first player and first card is not prime
     if (numberCardsPlayed != 0 && firstPrime == 0) {
-        // if non-prime then find factors and add to array of factors
-        int counter = 0;
-        while (numberDivided != 1 && counter < MAX_SIZE) {
+        // find factors of first card and add to array of factors
+        // find the prime factorisation of the first card
+        while (numberDivided != 1 && numFirstFactors < MAX_SIZE) {
+            // find all factors of 2 in the first card
             while (numberDivided % 2 == 0) {
-                firstFactors[counter] = 2;
+                firstFactors[numFirstFactors] = 2;
                 numberDivided = numberDivided/2;
                 numFirstFactors++;
-                counter++;
             } 
-        
+            // intitialise factor to 3
             int factor = 3;
+            // find all factors until the factor is equal to the first card 
             while (factor <= firstCard) {
+                // find all odd factors of the first card
                 if (numberDivided % factor == 0) {
                     while (numberDivided % factor == 0) {
-                        firstFactors[counter] = factor;
+                        firstFactors[numFirstFactors] = factor;
                         numberDivided = numberDivided/factor;
                         numFirstFactors++;
-                        counter++;
                     }
                     factor = factor + 2;
+                // if not a factor of first card, increment by 2
                 } else {
                     factor = factor + 2;
                 }
@@ -236,37 +248,46 @@ void choose_card_to_play(void) {
         }
     }
     
+    // initialise array for when a factor of a card is in the first card factors
     int match[MAX_SIZE] = {0}; 
+    // initialise array of all cocomposite numbers to the first card
     int allCocomposites[MAX_SIZE] = {0};
+    // total number of cocomposite numbers
     int numCocomposites = 0;
+    
+    // counter of all composite numbers
     int counterJ = 0;
-    int counter = 0;
+    // count of the number of factors in each card
+    int numberOfFactors = 0;
+
+    // if the first card is not prime and player is not first
     if (firstPrime == 0 && numberCardsPlayed != 0) {
+        // find the prime factorisation of 
         while (counterJ < totalNonPrimes) {
         
+            // initialise array for the factors of each card
             int compositeFactors[MAX_SIZE];
-            int numberOfFactors = 0;
-                
+            // copy of the each card to be divided by factors
             int composite = nonPrimes[counterJ];
+            // reset number of factors to 0 for each card
+            numberOfFactors = 0;
             
-            counter = 0;
-            
+            // find factors of each card and add to array of factors
+            // find the prime factorisation of each card
             while (composite != 1 && counter < MAX_SIZE) {
                 while (composite % 2 == 0) {
-                    compositeFactors[counter] = 2;
+                    compositeFactors[numberOfFactors] = 2;
                     composite = composite/2;
                     numberOfFactors++;
-                    counter++;
                 } 
             
                 int factor = 3;
                 while (factor <= composite) {
                     if (composite % factor == 0) {
                         while (composite % factor == 0) {
-                            compositeFactors[counter] = factor;
+                            compositeFactors[numberOfFactors] = factor;
                             composite = composite/factor;
                             numberOfFactors++;
-                            counter++;
                         }
                         factor = factor + 2;
                     } else {
@@ -274,13 +295,19 @@ void choose_card_to_play(void) {
                     }
                 }
             }
+            
+            // counter of the number of factors in the first card
             int counterK = 0;
+            // counter of the number of factors in each card
             int counterL = 0;
-                    
+            // reset counter to 0 for each card        
             counterK = 0; 
             while (counterK < numFirstFactors) {
+                // reset counter to 0 for each of the factors in the first card
                 counterL = 0;
                 while (counterL < numberOfFactors) {
+                    // if a factor in the first card is also in each card
+                    // add the card to the match array
                     if (firstFactors[counterK] == compositeFactors[counterL]) {
                         match[counterJ] = nonPrimes[counterJ];
                     }
@@ -291,9 +318,10 @@ void choose_card_to_play(void) {
             counterJ++;
         }
     }
-    
+    // counter of number of cocomposite cards
     int counterA = 0;
     while (counterA < MAX_SIZE) {
+        // for each card in match array, add it to cocomposite array if not 0
         if (match[counterA] != 0) {
             allCocomposites[numCocomposites] = match[counterA];
             numCocomposites++;
@@ -302,29 +330,38 @@ void choose_card_to_play(void) {
     }
     
     // find the biggest card that has been played in this round
+    // counter of cards previously played
     int counterZ = 0;
+    // intitialise biggest card played this round
     int bigPlay = 0;
-    while (counterZ < counterP) {
+    while (counterZ < numberCardsPlayed) {
+        // if previous card played is bigger than bigPlay, assign it as bigPlay
         if (previouslyPlayed[counterZ] > bigPlay) {
             bigPlay = previouslyPlayed[counterZ];
         }
         counterZ++;
     }
     
-    // find if there is 42 in the hand
+    // find if there is the douglas in the hand
+    // counter of cards in the hand
     int counterF = 0;
+    // boolean if the douglas is in hand; starts as FALSE
     int douglasHand = 0;
     while (counterF < numberInHand) {
+        // if a card in the hand is 42, douglasHand is TRUE
         if (cardsInHand[counterF] == 42) {
             douglasHand = 1;
         }
         counterF++;
     }
     
-    // check if 42 is in cocomposite
+    // check if the douglas is cocomposite
+    // counter of cocomposite cards
     int counterE = 0;
+    // boolean if the douglas is cocomposite; starts as FALSE
     int douglasCocomposite = 0;
     while (counterE < numCocomposites) {
+        // if 42 is a cocomposite card, douglasCocomposite is TRUE
         if (allCocomposites[counterE] == 42) {
             douglasCocomposite = 1;
         }
@@ -407,7 +444,6 @@ void choose_card_to_play(void) {
 
 // ADD YOUR FUNCTIONS HERE
 
-// checks if a number is prime or composite
 int primeCheck(int num) {
 
     int prime = 0;
