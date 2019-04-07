@@ -274,7 +274,7 @@ void choose_card_to_play(void) {
             
             // find factors of each card and add to array of factors
             // find the prime factorisation of each card
-            while (composite != 1 && counter < MAX_SIZE) {
+            while (composite != 1 && numberOfFactors < MAX_SIZE) {
                 while (composite % 2 == 0) {
                     compositeFactors[numberOfFactors] = 2;
                     composite = composite/2;
