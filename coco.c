@@ -2,7 +2,7 @@
 //
 // This program was written by Elicia Au Duong (z5260173)
 // on 30.03.2019
-//
+// 
 
 #include <stdio.h>
 #include <assert.h>
@@ -311,6 +311,26 @@ void choose_card_to_play(void) {
         counterZ++;
     }
     
+    // find if there is 42 in the hand
+    int counterF = 0;
+    int douglasHand = 0;
+    while (counterF < numberInHand) {
+        if (cardsInHand[counterF] == 42) {
+            douglasHand = 1;
+        }
+        counterF++;
+    }
+    
+    // check if 42 is in cocomposite
+    int counterE = 0;
+    int douglasCocomposite = 0;
+    while (counterE < numCocomposites) {
+        if (allCocomposites[counterE] == 42) {
+            douglasCocomposite = 1;
+        }
+        counterE++;
+    }
+    
     // valid moves
     // check if playing first card in round
     if (numberCardsPlayed == 0) {
@@ -373,7 +393,9 @@ void choose_card_to_play(void) {
                 }
             } else {
                 // play any card
-                if (totalPrimes != 0) {
+                if (douglasHand == 1 && douglasCocomposite == 0) {
+                    printf("%d\n", THE_DOUGLAS); 
+                } else if (totalPrimes != 0) {
                     printf("%d\n", primes[totalPrimes-1]); 
                 } else {
                     printf("%d\n", nonPrimes[totalNonPrimes-1]);
