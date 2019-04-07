@@ -342,32 +342,6 @@ void choose_card_to_play(void) {
         counterZ++;
     }
     
-    // find if there is the douglas in the hand
-    // counter of cards in the hand
-    int counterF = 0;
-    // boolean if the douglas is in hand; starts as FALSE
-    int douglasHand = 0;
-    while (counterF < numberInHand) {
-        // if a card in the hand is 42, douglasHand is TRUE
-        if (cardsInHand[counterF] == 42) {
-            douglasHand = 1;
-        }
-        counterF++;
-    }
-    
-    // check if the douglas is cocomposite
-    // counter of cocomposite cards
-    int counterE = 0;
-    // boolean if the douglas is cocomposite; starts as FALSE
-    int douglasCocomposite = 0;
-    while (counterE < numCocomposites) {
-        // if 42 is a cocomposite card, douglasCocomposite is TRUE
-        if (allCocomposites[counterE] == 42) {
-            douglasCocomposite = 1;
-        }
-        counterE++;
-    }
-    
     // valid moves
     // check if playing first card in round
     if (numberCardsPlayed == 0) {
@@ -385,11 +359,7 @@ void choose_card_to_play(void) {
                 printf("%d\n", nonPrimes[0]);
             } else {
                 //play any card
-                if (totalNonPrimes != 0) {
-                    printf("%d\n", nonPrimes[0]);
-                } else {
-                    printf("%d\n", primes[0]);
-                }
+                printf("%d\n", primes[0]);
             }
         }
     } else {
@@ -398,7 +368,9 @@ void choose_card_to_play(void) {
             // check if there is a prime card in hand
             if (totalPrimes != 0) {
                 //play a prime 
+                // numGoodCards: number of prime cards less than bigPlay
                 if (numGoodCards(bigPlay, totalPrimes, primes) != 0) {
+                    // bestPlay: biggest card less than the highest card in round
                     printf("%d\n", bestPlay(bigPlay, totalPrimes, primes));
                 } else {
                     printf("%d\n", primes[0]);
@@ -406,13 +378,17 @@ void choose_card_to_play(void) {
             } else {
                 //play any card
                 if (totalNonPrimes != 0) {
+                    // numGoodCards: number of non-prime cards less than bigPlay
                     if (numGoodCards(bigPlay, totalNonPrimes, nonPrimes) != 0) {
+                    // bestPlay: biggest card less than the highest card in round
                         printf("%d\n", bestPlay(bigPlay, totalNonPrimes, nonPrimes));
                     } else {
                         printf("%d\n", nonPrimes[0]);
                     }
                 } else {
+                    // numGoodCards: number of prime cards less than bigPlay
                     if (numGoodCards(bigPlay, totalPrimes, primes) != 0) {
+                        // bestPlay: biggest card less than the highest card in round
                         printf("%d\n", bestPlay(bigPlay, totalPrimes, primes));
                     } else {
                         printf("%d\n", primes[0]);
@@ -423,16 +399,16 @@ void choose_card_to_play(void) {
             // check if co-composite card in hand
             if (numCocomposites != 0) {
                 // play co-composite card
+                // numGoodCards: number of composite cards less than bigPlay
                 if (numGoodCards(bigPlay, numCocomposites, allCocomposites) != 0) {
+                    // bestPlay: biggest card less than the highest card in round
                     printf("%d\n", bestPlay(bigPlay, numCocomposites, allCocomposites));
                 } else {
                     printf("%d\n", allCocomposites[0]);
                 }
             } else {
                 // play any card
-                if (douglasHand == 1 && douglasCocomposite == 0) {
-                    printf("%d\n", THE_DOUGLAS); 
-                } else if (totalPrimes != 0) {
+                if (totalPrimes != 0) {
                     printf("%d\n", primes[totalPrimes-1]); 
                 } else {
                     printf("%d\n", nonPrimes[totalNonPrimes-1]);
